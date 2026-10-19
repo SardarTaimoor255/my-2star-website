@@ -1,0 +1,38 @@
+# ============================================================
+# 5 STAR — Security & Routing Rules
+# ============================================================
+
+# Disable directory listing
+Options -Indexes
+# ============================================================
+# Custom Error Pages
+# ============================================================
+ErrorDocument 403 /5star/errors/403.php
+ErrorDocument 404 /5star/errors/404.php
+ErrorDocument 500 /5star/errors/500.php
+ErrorDocument 503 /5star/errors/maintenance.php
+# Block access to sensitive files
+<FilesMatch "\.(sql|log|md|ini|env)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to config & includes folders
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule ^logs/ - [F,L]
+    RewriteRule ^database/ - [F,L]
+</IfModule>
+
+# Default charset
+AddDefaultCharset UTF-8
+
+# PHP settings (basic)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 5M
+    php_value post_max_size 8M
+    php_value max_execution_time 60
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>

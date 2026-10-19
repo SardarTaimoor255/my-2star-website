@@ -1,0 +1,11 @@
+# Sensitive files
+config/database.php
+config/config.php
+
+# Uploaded user files (taake repo heavy na ho)
+uploads/
+assets/uploads/
+
+# System files
+.DS_Store
+Thumbs.db
